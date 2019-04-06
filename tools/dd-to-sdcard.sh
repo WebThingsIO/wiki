@@ -47,6 +47,9 @@ done
 if [[ "${IMG_FILENAME}" == *.zip ]]; then
   echo "Unzipping image from '${IMG_FILENAME}' to '${DD_DEV}'"
   unzip -p ${IMG_FILENAME} | sudo dd status=progress bs=10M of="${DD_DEV}"
+elif [[ "${IMG_FILENAME}" == *.gz ]]; then
+  echo "gunzipping image from '${IMG_FILENAME}' to '${DD_DEV}'"
+  gunzip -c ${IMG_FILENAME} | sudo dd status=progress bs=10M of="${DD_DEV}"
 else
   echo "Writing image to '${DD_DEV}' from '${IMG_FILENAME}'"
   sudo dd status=progress bs=10M of="${DD_DEV}" if="${IMG_FILENAME}"
